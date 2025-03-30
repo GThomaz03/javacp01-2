@@ -2,6 +2,7 @@
 
 ## Integrantes 
 RM554945 - NATHÁLIA GOMES DA SILVA
+
 RM558637 - GABRIEL ALVES THOMAZ
 
 ## ℹ️ Sobre o Projeto
