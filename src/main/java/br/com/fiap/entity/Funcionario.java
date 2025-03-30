@@ -1,5 +1,8 @@
 package br.com.fiap.entity;
 
+import br.com.fiap.exceptions.HorasTrabalhadasInvalidas;
+import br.com.fiap.exceptions.ValorInvalido;
+
 import javax.persistence.*;
 
 
@@ -22,7 +25,16 @@ public class Funcionario {
     @Column(name = "valor_hora")
     private double valorHora;
 
-    public Funcionario(String nome, double horasTrabalhadas, double valorHora) {
+    public Funcionario(String nome, double horasTrabalhadas, double valorHora) throws HorasTrabalhadasInvalidas, ValorInvalido {
+
+        if (horasTrabalhadas < 0) {
+            throw new HorasTrabalhadasInvalidas("Horas trabalhadas não pode ser menor que zero.");
+        }
+
+        if (valorHora <= 0) {
+            throw new ValorInvalido("Valor da hora deve ser maior do que zero.");
+        }
+
         this.nome = nome;
         this.horasTrabalhadas = horasTrabalhadas;
         this.valorHora = valorHora;
@@ -44,7 +56,11 @@ public class Funcionario {
         return horasTrabalhadas;
     }
 
-    public void setHorasTrabalhadas(double horasTrabalhadas) {
+    public void setHorasTrabalhadas(double horasTrabalhadas) throws HorasTrabalhadasInvalidas{
+        if(horasTrabalhadas<0){
+            throw new HorasTrabalhadasInvalidas("Horas trabalhadas não pode ser menor que zero.");
+        }
+
         this.horasTrabalhadas = horasTrabalhadas;
     }
 
@@ -60,7 +76,12 @@ public class Funcionario {
         return valorHora;
     }
 
-    public void setValorHora(double valorHora) {
+    public void setValorHora(double valorHora) throws ValorInvalido{
+
+        if (valorHora<=0) {
+            throw new ValorInvalido("Valor da hora deve ser maior do que zero.");
+        }
+
         this.valorHora = valorHora;
     }
 

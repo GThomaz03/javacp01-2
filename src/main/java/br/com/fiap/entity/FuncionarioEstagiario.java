@@ -1,5 +1,8 @@
 package br.com.fiap.entity;
 
+import br.com.fiap.exceptions.HorasTrabalhadasInvalidas;
+import br.com.fiap.exceptions.ValorInvalido;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,8 +13,13 @@ public class FuncionarioEstagiario extends Funcionario{
     @Column(name = "desconto")
     private double desconto = 0.8;
 
-    public FuncionarioEstagiario(String nome, double horasTrabalhadas, double valorHora) {
+    public FuncionarioEstagiario(String nome, double horasTrabalhadas, double valorHora, double desconto) throws ValorInvalido, HorasTrabalhadasInvalidas {
         super(nome, horasTrabalhadas, valorHora);
+        //desconto deve ser entre 0 e 1
+        if (desconto<0 || desconto>1) {
+            throw new ValorInvalido("Valor do desconto deve ser entre 0 e 1.");
+        }
+        this.desconto = desconto;
     }
 
     public FuncionarioEstagiario(){
@@ -30,5 +38,10 @@ public class FuncionarioEstagiario extends Funcionario{
     }
 
     public double getDesconto() { return desconto; }
-    public void setDesconto(double desconto) { this.desconto = desconto; }
+    public void setDesconto(double desconto) throws ValorInvalido {
+        if(desconto<0 || desconto>1){
+            throw new ValorInvalido("Valor do desconto deve ser entre 0 e 1.");
+        }
+        this.desconto = desconto;
+    }
 }
